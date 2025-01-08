@@ -1,0 +1,26 @@
+.navbar{
+    background-color: rgb(41, 41, 41);
+    display: flex;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    height: 70px;
+    width: 100%;
+    border: 1px solid black;
+    color: rgb(199, 198, 198);
+}
+
+.logo{
+    max-height: 150px;
+}
+
+.dropdown-menu{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0%;
+    top: 10%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 2%;
+}

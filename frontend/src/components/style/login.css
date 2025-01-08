@@ -1,0 +1,31 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    margin:1%;
+
+}
+
+.divclose{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+padding: 2%;
+border-radius: 10px;
+
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 600px;
+    
+}
+
+input{
+    width: 600px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
