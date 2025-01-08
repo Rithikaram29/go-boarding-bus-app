@@ -31,6 +31,9 @@ connectDB();
 app.use(express.json());
 
 // Define routes
+app.get("/health",(req,res)=>{
+  res.send("Server OK!")
+})
 app.use("/admin", authorisation, adminRoutes);
 app.use("/user", userRoutes);  // Get bus does not need authorization, so no middleware is needed
 app.use("/auth", authRoutes);
