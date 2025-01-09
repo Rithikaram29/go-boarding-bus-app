@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { LocalHost } from '../components/constants';
 
 const authToken = localStorage.getItem('authToken');
 
 // Create an Axios instance
 const apiClient = axios.create({
-    baseURL: 'http://localhost:4000/user', // Your backend base URL
+    baseURL: `${LocalHost}/user`, // Your backend base URL
     headers: {
         'Content-Type': 'application/json',
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),

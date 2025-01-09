@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LocalHost } from "./constants";
 
 interface BookedSeat {
   SeatNumber: string;
@@ -81,7 +82,7 @@ const SeatGrid: React.FC<SeatGridProps> = ({ seatData }) => {
       // Fetch user details to check if the user is logged in
       const fetchUser = async () => {
         try {
-          const res = await axios.get("http://localhost:4000/user/account", {
+          const res = await axios.get(`${LocalHost}/user/account`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token if necessary
             },
@@ -130,7 +131,7 @@ const SeatGrid: React.FC<SeatGridProps> = ({ seatData }) => {
 
       // Make an axios PUT request to book the tickets
       const res = await axios.put(
-        `http://localhost:4000/user/book-ticket/${busNo}`, // Include the bus ID in the URL
+        `${LocalHost}/user/book-ticket/${busNo}`, // Include the bus ID in the URL
         payload,
         {
           headers: {

@@ -4,6 +4,7 @@ import axios from "axios";
 import SeatGrid from "../components/seatGrid";
 import "../components/style/searchBar.css";
 import SideBar from "../components/SideBar";
+import { LocalHost } from "../components/constants";
 
 const SearchPage: React.FC = () => {
   const [searchResults, setSearchResults] = useState<any>(null);
@@ -32,7 +33,7 @@ const SearchPage: React.FC = () => {
   // Fetch bus details based on the search data
   const fetchBusDetails = async (searchData: any) => {
     try {
-      const response = await axios.get("http://localhost:4000/user/findbus", {
+      const response = await axios.get(`${LocalHost}/user/findbus`, {
         params: searchData,
       });
 

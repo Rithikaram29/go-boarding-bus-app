@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../style/calender.css'; 
 import axios from 'axios';
+import { LocalHost } from '../constants';
 
 // Interface for Bus Data
 interface Bus {
@@ -19,7 +20,7 @@ const Calendar: React.FC = () => {
     const fetchBuses = async () => {
       setIsLoading(true);
       try {
-        const res = await axios.get("http://localhost:4000/admin/bus", {
+        const res = await axios.get(`${LocalHost}/admin/bus`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
@@ -95,7 +96,7 @@ const Calendar: React.FC = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://localhost:4000/admin/calendar/addbus",
+        `${LocalHost}/admin/calendar/addbus`,
         {
           busNo: selectedBus,
           dates: selectedDates,

@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { LocalHost } from "../constants";
+import { LocalHost } from "../constants";
 
-const LocalHost = "http://localhost:4000";
+
 
 import "../style/adminbus.css";
 

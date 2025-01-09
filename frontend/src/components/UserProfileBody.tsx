@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { LocalHost } from './constants';
 
 interface Seat {
     seatNo: string;
@@ -25,7 +26,7 @@ const UserProfileBody: React.FC = () => {
         const fetchUser = async () => {
           try {
             // console.log(localStorage.getItem("authToken"))
-            const res = await axios.get("http://localhost:4000/user/account", {
+            const res = await axios.get(`${LocalHost}/user/account`, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem("authToken")}`, 
               },
@@ -68,7 +69,7 @@ const UserProfileBody: React.FC = () => {
 
         try {
           const res = await axios.put(
-            `http://localhost:4000/user/cancel-ticket/${busNo}`, 
+            `${LocalHost}/user/cancel-ticket/${busNo}`, 
             payload,
             {
               headers: {

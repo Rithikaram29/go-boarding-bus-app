@@ -5,6 +5,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { LocalHost } from "./constants";
 
 const NavBar: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
@@ -21,7 +22,7 @@ const NavBar: React.FC = () => {
     const fetchUser = async () => {
       try {
         // console.log(localStorage.getItem("authToken"))
-        const res = await axios.get("http://localhost:4000/user/account", {
+        const res = await axios.get(`${LocalHost}/user/account`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token if necessary
           },

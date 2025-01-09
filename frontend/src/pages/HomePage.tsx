@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
 import axios from "axios";
 import AdminBus from "../components/adminComponents/AdminBus";
+import { LocalHost } from "../components/constants";
 
 const HomePage: React.FC = () => {
   const [user, setUser] = useState<{ name: string; role: string } | null>(null);
@@ -11,7 +12,7 @@ const HomePage: React.FC = () => {
     const fetchUser = async () => {
       try {
         // console.log(localStorage.getItem("authToken"))
-        const res = await axios.get("http://localhost:4000/user/account", {
+        const res = await axios.get(`${LocalHost}/user/account`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token if necessary
           },

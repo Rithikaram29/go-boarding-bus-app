@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './style/signup.css';
+import { LocalHost } from "./constants";
 
 enum UserRole {
   ADMIN = "admin",
@@ -54,7 +55,7 @@ const Signup: React.FC = () => {
     console.log(formData);
   
     try {
-      const response = await axios.post("http://localhost:4000/auth/signup", {
+      const response = await axios.post(`${LocalHost}/auth/signup`, {
         userName: formData.userName,
         phone: formData.phone,
         email: formData.email,

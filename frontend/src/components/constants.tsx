@@ -1,1 +1,1 @@
-export const LocalHost = "http://localhost:4000";
+export const LocalHost = "https://go-boarding-backend.onrender.com"

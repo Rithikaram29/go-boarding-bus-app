@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./style/login.css"
 import { useNavigate } from "react-router-dom";
+import { LocalHost } from "./constants";
+
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
@@ -16,7 +18,7 @@ const navigate = useNavigate()
     setMessage(null);
 
     try {
-      const response = await axios.post("http://localhost:4000/auth/login", {
+      const response = await axios.post(`${LocalHost}/auth/login`, {
         userName,
         password,
       });
