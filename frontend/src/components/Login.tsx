@@ -23,6 +23,7 @@ const navigate = useNavigate()
         password,
       });
 
+      console.log(response)
       // Store the JWT token securely
       localStorage.setItem("authToken", response.data);
 

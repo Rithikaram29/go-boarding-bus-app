@@ -19,10 +19,21 @@ const app: Application = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: "*",  // Allow requests from this any origin
-  methods: ["GET", "POST", "PUT", "DELETE"],  // Allow these HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"],  // Allow these headers in requests
-  credentials: false,  // Allow cookies or credentials if needed
+  origin: (origin:any, callback: any) => {
+    // Allow multiple specific origins or allow all
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:5174", // Add all your allowed origins here
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error("Not allowed by CORS")); // Block the request
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allow these HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers in requests
+  credentials: true, // Enable credentials
 };
 
 app.use(cors(corsOptions));  // Apply CORS middleware globally
