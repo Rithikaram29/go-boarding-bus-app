@@ -18,6 +18,7 @@ const navigate = useNavigate()
     setMessage(null);
 
     try {
+      console.log(userName,password)
       const response = await axios.post(`${LocalHost}/auth/login`, {
         userName,
         password,
