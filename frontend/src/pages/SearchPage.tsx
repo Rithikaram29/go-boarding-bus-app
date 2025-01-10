@@ -281,6 +281,7 @@ const SearchPage: React.FC = () => {
                     <b>{filteredResults.length} </b>buses found from{" "}
                     <b>{inputdata.from} </b>to <b>{inputdata.to}</b>
                   </p>
+                  {error && <p>{error}</p>}
                   {filteredResults.map((bus: any, index: number) => (
                     <div
                       key={index}
