@@ -22,8 +22,7 @@ const corsOptions = {
   origin: (origin:any, callback: any) => {
     // Allow multiple specific origins or allow all
     const allowedOrigins = [
-      "http://localhost:5173",
-      "http://localhost:5174", // Add all your allowed origins here
+      "http://localhost:5174", 
     ];
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true); // Allow the request
