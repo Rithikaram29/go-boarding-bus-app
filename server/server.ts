@@ -23,7 +23,7 @@ const corsOptions = {
     // Allow multiple specific origins or allow all
     const allowedOrigins = [
       "http://localhost:5174", 
-      "https://go-boarding-bus-app-yfk7.vercel.app/",
+      "https://go-boarding-bus-app-yfk7.vercel.app",
       "https://go-boarding-bus-app-yfk7-mjfyfqh7j-rithikaram29s-projects.vercel.app"
     ];
     if (!origin || allowedOrigins.includes(origin)) {
