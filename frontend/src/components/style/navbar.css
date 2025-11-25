@@ -1,26 +1,210 @@
-.navbar{
-    background-color: rgb(41, 41, 41);
-    display: flex;
-    align-items: center;
-    padding: 1%;
-    justify-content: space-between;
-    height: 70px;
-    width: 100%;
-    border: 1px solid black;
-    color: rgb(199, 198, 198);
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 7vw;
+  background: rgba(5, 9, 20, 0.65);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 150ms ease, box-shadow 150ms ease;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.logo{
-    max-height: 150px;
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 1rem 4vw;
+  }
 }
 
-.dropdown-menu{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 0%;
-    top: 10%;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 2%;
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+.navbar-scrolled {
+  background: rgba(5, 9, 20, 0.85);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  cursor: pointer;
+}
+
+.logo {
+  height: 44px;
+  width: auto;
+}
+
+.brand-eyebrow {
+  font-size: 0.75rem;
+  color: #8ea6ff;
+  margin: 0;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.brand-tagline {
+  margin: 0;
+  color: #f1f2ff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.navbar-center {
+  display: flex;
+}
+
+.navbar-center ul {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  .navbar-center {
+    display: none;
+  }
+}
+
+.nav-link {
+  background: transparent;
+  border: none;
+  color: #c6d0ff;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .navbar-right {
+    gap: 0.5rem;
+  }
+  
+  .navbar-cta {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .account-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  .account-button span {
+    display: none;
+  }
+}
+
+.navbar-cta {
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6a6bff, #00c6ff);
+  color: #050b1a;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0, 153, 255, 0.25);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.navbar-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 153, 255, 0.35);
+}
+
+.account-button {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #f1f2ff;
+  padding: 0.5rem 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: background 150ms ease;
+}
+
+.account-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 7vw;
+  top: 75px;
+  background: rgba(5, 9, 20, 0.95);
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 20px 35px rgba(2, 3, 13, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 160px;
+}
+
+@media (max-width: 768px) {
+  .dropdown-menu {
+    right: 1.5rem;
+    top: 70px;
+  }
+}
+
+.dropdown-menu button {
+  background: transparent;
+  border: none;
+  color: #dfe6ff;
+  text-align: left;
+  padding: 0.35rem 0.25rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.dropdown-menu button:hover {
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .navbar-left {
+    gap: 0.5rem;
+  }
+  
+  .logo {
+    height: 36px;
+  }
+  
+  .brand-eyebrow {
+    font-size: 0.65rem;
+  }
+  
+  .brand-tagline {
+    font-size: 0.85rem;
+  }
 }

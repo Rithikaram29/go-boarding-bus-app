@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LocalHost } from "../constants";
-
-
+import { defaultBuses, DefaultBus } from "../../utils/defaultBuses";
 
 import "../style/adminbus.css";
 
@@ -66,9 +65,19 @@ const AdminBus: React.FC = () => {
           },
         });
 
-        setBuses(res.data);
+        const fetchedBuses = res.data || [];
+        
+        // Only show default buses if admin has not added any buses
+        if (fetchedBuses.length === 0) {
+          setBuses(defaultBuses as Bus[]);
+        } else {
+          // Show only admin buses when they exist
+          setBuses(fetchedBuses);
+        }
       } catch (error: any) {
         console.log("Error fetching buses:", error.message);
+        // If fetch fails, show default buses as fallback
+        setBuses(defaultBuses as Bus[]);
       }
     };
 
@@ -78,6 +87,14 @@ const AdminBus: React.FC = () => {
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const busId = e.currentTarget.name;
+    
+    // Check if it's a default bus
+    const defaultBus = defaultBuses.find((bus) => bus._id === busId);
+    if (defaultBus) {
+      setBusDetail(defaultBus as Bus);
+      return;
+    }
+
     try {
       const res = await axios.get(`${LocalHost}/admin/bus/details/${busId}`, {
         headers: {
@@ -136,6 +153,12 @@ const AdminBus: React.FC = () => {
       return;
     }
 
+    // Check if it's a default bus (demo bus)
+    if (busDetail._id.startsWith("default-bus-")) {
+      alert("This is a demo bus. Please add your own bus to make updates.");
+      return;
+    }
+
     try {
       // Merge the existing trips with new trips
       const updatedBusData = {
@@ -182,14 +205,27 @@ const AdminBus: React.FC = () => {
           <div className="busnames">
             {buses.length > 0 ? (
               buses.map((bus: Bus) => (
-                <button
-                  key={bus._id}
-                  name={bus._id}
-                  onClick={handleClick}
-                  className="busname"
-                >
-                  {bus.busNo}
-                </button>
+                <div key={bus._id} style={{ position: "relative", display: "inline-block" }}>
+                  <button
+                    name={bus._id}
+                    onClick={handleClick}
+                    className="busname"
+                  >
+                    {bus.busNo}
+                  </button>
+                  {bus._id.startsWith("default-bus-") && (
+                    <span
+                      style={{
+                        fontSize: "0.7rem",
+                        color: "#666",
+                        marginLeft: "4px",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      (Demo)
+                    </span>
+                  )}
+                </div>
               ))
             ) : (
               <p>No buses present in your account</p>
@@ -205,6 +241,19 @@ const AdminBus: React.FC = () => {
           <>
             <h2 style={{ fontSize: "20px", fontWeight: "500" }}>
               {busDetail.busNo}
+              {busDetail._id.startsWith("default-bus-") && (
+                <span
+                  style={{
+                    fontSize: "0.85rem",
+                    color: "#666",
+                    marginLeft: "8px",
+                    fontStyle: "italic",
+                    fontWeight: "normal",
+                  }}
+                >
+                  (Demo Bus)
+                </span>
+              )}
             </h2>
             <p><b>Name: </b>{busDetail.busName}</p>
             <p style={{color:"red",fontSize:"16px"}}>{busDetail.isAc ? "AC Bus" : "Non-AC Bus"}</p>

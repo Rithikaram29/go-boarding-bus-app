@@ -19,7 +19,7 @@ const SideBar: React.FC<SideBarProps> = ({ onFilter }) => {
   };
 
   return (
-    <div className="sidebar p-2 bg-gray-100 shadow-md h-screen mr-10">
+    <div className="sidebar p-2 sm:p-4 bg-gray-100 shadow-md h-auto lg:h-screen lg:mr-10 w-full lg:w-auto mb-4 lg:mb-0 lg:sticky lg:top-20">
       <h3 className="text-md font-semibold mb-4">Filter by Time</h3>
 
       {/* Pickup Time Filters */}

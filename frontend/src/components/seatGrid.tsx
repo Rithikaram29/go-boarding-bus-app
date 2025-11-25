@@ -268,7 +268,7 @@ const SeatGrid: React.FC<SeatGridProps> = ({ seatData }) => {
         </div>
          {/* Selected Seats */}
          {selectedSeats.length > 0 && (
-          <div className="mt-4 shadow-lg p-4 rounded-md">
+          <div className="mt-4 shadow-lg p-4 rounded-md w-[50%]">
             <h2 className="text-lg font-bold">Passenger Details:</h2>
             {selectedSeats.map((seat, index) => (
               <div key={index} className="flex items-center gap-4 mb-2">

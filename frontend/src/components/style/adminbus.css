@@ -2,15 +2,30 @@
   width: 100%;
   height: auto;
   display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .maindiv {
+    flex-direction: row;
+  }
 }
 
 .busname {
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   margin: 1%;
   border: 1px solid rgb(237, 237, 237);
   box-shadow: rgba(0, 0, 0, 0.24) 1px 2px 3px;
   border-radius: 10px;
   padding: 1%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .busname {
+    max-width: 100%;
+  }
 }
 
 .busname:hover {
@@ -29,10 +44,26 @@
   padding: 1%;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  min-width: 0;
 }
 
 .busDetail {
   flex: 3;
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .buslist {
+    width: 100%;
+    margin: 0.5rem;
+  }
+  
+  .busDetail {
+    width: 100%;
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
 }
 
 .busnames {
@@ -62,4 +93,14 @@ input {
   outline: 1px solid gray;
   border-radius: 10px;
   height: 40px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .busButton {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
 }

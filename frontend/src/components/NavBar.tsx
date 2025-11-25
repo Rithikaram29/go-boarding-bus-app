@@ -1,41 +1,32 @@
 import React, { useEffect, useState } from "react";
-import BusticketLogo from "../assets/BusticketLogo.png";
-import "./style/navbar.css";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import BusticketLogo from "../assets/BusticketLogo.png";
 import { LocalHost } from "./constants";
+import "./style/navbar.css";
 
 const NavBar: React.FC = () => {
-  const [isOpen, setOpen] = useState(false);
-  const [user, setUser] = useState<{ name: string; role: string } | null>(null);
-
-
-  const handleAccountClick = () => {
-    setOpen(!isOpen);
-  };
-
   const navigate = useNavigate();
+  const [isOpen, setOpen] = useState(false);
+  const [isScrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<{ name: string; role: string } | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        // console.log(localStorage.getItem("authToken"))
         const res = await axios.get(`${LocalHost}/user/account`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token if necessary
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         });
 
-        let data = res.data[0];
-
-        const currentUser = {
+        const data = res.data[0];
+        setUser({
           name: data.userName,
           role: data.role,
-        };
-        setUser(currentUser);
-        // console.log(res.data);
+        });
       } catch (error: any) {
         console.log("Error fetching user:", error.message);
       }
@@ -44,82 +35,105 @@ const NavBar: React.FC = () => {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setOpen(false);
+  };
+
+  const navItems = [
+    { label: "Home", path: "/" },
+    { label: "Plan trip", path: "/search" },
+    ...(user ? [{ label: "My trips", path: "/user/profile" }] : []),
+    ...(user?.role === "admin" ? [{ label: "Admin", path: "/admin/addbus" }] : []),
+  ];
+
+  const ctaLabel = user?.role === "admin" ? "Manage buses" : "Book a seat";
+  const ctaPath = user?.role === "admin" ? "/admin/addbus" : "/search";
+
+  const handleAccountClick = () => setOpen((prev) => !prev);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setUser(null);
+    navigate("/");
+    window.location.reload();
+  };
+
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-left hover:cursor-pointer" >
-          <img src={BusticketLogo} alt="logo" className="logo" onClick={()=> navigate("/")} />
-          {/* {user && user.role === "admin" && <button>Admin Panel</button>} */}
+      <nav className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
+        <div className="navbar-left" onClick={() => handleNavigate("/")}>
+          <img src={BusticketLogo} alt="Go Boarding logo" className="logo" />
+          <div>
+            <p className="brand-eyebrow">Go Boarding</p>
+            <p className="brand-tagline">Bus travel, redesigned</p>
+          </div>
         </div>
+
+        <div className="navbar-center">
+          <ul>
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <button type="button" className="nav-link" onClick={() => handleNavigate(item.path)}>
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <div className="navbar-right">
-          <button onClick={handleAccountClick} className="account-button">
+          <button type="button" className="navbar-cta" onClick={() => handleNavigate(ctaPath)}>
+            {ctaLabel}
+          </button>
+          <button type="button" onClick={handleAccountClick} className="account-button">
             <FontAwesomeIcon icon={faUser} />
             {user ? ` ${user.name}` : " Account"}
           </button>
         </div>
       </nav>
+
       {isOpen && (
-        <ul className="dropdown-menu space-y-6">
+        <ul className="dropdown-menu">
           {user ? (
             <>
-              {user.role === "admin" ? (
-                <>
-                  {" "}
-                  <li>
-                    <button onClick={() => navigate("/admin/addbus")}>
-                     Add Bus
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => navigate("/")}>
-                     Home
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => {
-                        localStorage.removeItem("authToken"); // Clear token on logout
-                        setUser(null);
-                        navigate("/");
-                        window.location.reload();
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </li>{" "}
-                </>
-              ) : (
-                <>
-                  {" "}
-                  <li>
-                    <button onClick={() => navigate("/")}>
-                     Home
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => navigate("/user/profile")}>
-                      Profile
-                    </button>
-                  </li>
-
-                  <li>
-                    <button
-                      onClick={() => {
-                        localStorage.removeItem("authToken"); // Clear token on logout
-                        setUser(null);
-                        navigate("/");
-                        window.location.reload();
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </>
+              <li>
+                <button type="button" onClick={() => handleNavigate("/")}>
+                  Home
+                </button>
+              </li>
+              <li>
+                <button type="button" onClick={() => handleNavigate("/user/profile")}>
+                  Profile
+                </button>
+              </li>
+              {user.role === "admin" && (
+                <li>
+                  <button type="button" onClick={() => handleNavigate("/admin/addbus")}>
+                    Add bus
+                  </button>
+                </li>
               )}
+              <li>
+                <button type="button" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
             </>
           ) : (
             <li>
-              <button onClick={() => navigate("/login")}>Login</button>
+              <button type="button" onClick={() => handleNavigate("/login")}>
+                Login
+              </button>
             </li>
           )}
         </ul>
