@@ -1,4 +1,4 @@
-# Go Boarding 
+# Go Boarding - v2
 
 Go Boarding is a bus ticket booking app, which connects bus operators and customers.
 
