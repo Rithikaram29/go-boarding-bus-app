@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LocalHost } from "../constants";
-import { defaultBuses, DefaultBus } from "../../utils/defaultBuses";
+import { defaultBuses} from "../../utils/defaultBuses";
 
 import "../style/adminbus.css";
 

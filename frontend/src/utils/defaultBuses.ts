@@ -45,23 +45,23 @@ const getDropDate = (pickupDate: string, hoursToAdd: number = 6): string => {
 };
 
 // Generate multiple trips for each route to ensure buses show up for different dates
-const generateTripsForRoute = (
-  from: string,
-  to: string,
-  baseDays: number[] = [0, 1, 2],
-  hours: number[] = [6, 8, 10, 14, 16, 18, 20, 22],
-  durationHours: number = 6
-) => {
-  return baseDays.flatMap((day) =>
-    hours.map((hour) => ({
-      pickuplocation: from.toLowerCase(),
-      pickupDateTime: getUpcomingDate(day, hour),
-      dropLocation: to.toLowerCase(),
-      dropDateTime: getDropDate(getUpcomingDate(day, hour), durationHours),
-      bookedSeats: [],
-    }))
-  );
-};
+// const generateTripsForRoute = (
+//   from: string,
+//   to: string,
+//   baseDays: number[] = [0, 1, 2],
+//   hours: number[] = [6, 8, 10, 14, 16, 18, 20, 22],
+//   durationHours: number = 6
+// ) => {
+//   return baseDays.flatMap((day) =>
+//     hours.map((hour) => ({
+//       pickuplocation: from.toLowerCase(),
+//       pickupDateTime: getUpcomingDate(day, hour),
+//       dropLocation: to.toLowerCase(),
+//       dropDateTime: getDropDate(getUpcomingDate(day, hour), durationHours),
+//       bookedSeats: [],
+//     }))
+//   );
+// };
 
 export const defaultBuses: DefaultBus[] = [
   {
